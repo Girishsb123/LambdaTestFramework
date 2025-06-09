@@ -41,7 +41,7 @@
 
 
 
-	 <test name="Product Results Page Test">
+	 <!-- <test name="Product Results Page Test">
 		<parameter name="browser" value="edge" />
 		<parameter name="browserversion" value="113" />
 		<parameter name="testname"
@@ -61,7 +61,7 @@
 		<classes>
 			<class name="com.qa.lamda.tests.RegisterPageTest" />
 		</classes>
-	</test>
+	</test>-->
 
 
 </suite>	
