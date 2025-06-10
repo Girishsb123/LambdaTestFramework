@@ -44,9 +44,7 @@
 	 <!-- <test name="Product Results Page Test">
 		<parameter name="browser" value="edge" />
 		<parameter name="browserversion" value="113" />
-		<parameter name="testname"
-			value="Product Results Page Test" />
-
+		<parameter name="testname" value="Product Results Page Test" />
 
 		<classes>
 			<class name="com.qa.lamda.tests.ProductResultsPageTest" />
@@ -58,6 +56,7 @@
 		<parameter name="browser" value="firefox" />
 		<parameter name="browserversion" value="116" />
 		<parameter name="testname" value="Register Page Test" />
+		
 		<classes>
 			<class name="com.qa.lamda.tests.RegisterPageTest" />
 		</classes>
