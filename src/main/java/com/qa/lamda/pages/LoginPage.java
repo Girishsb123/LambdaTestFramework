@@ -2,6 +2,8 @@ package com.qa.lamda.pages;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -28,6 +30,8 @@ public class LoginPage {
 	private By registerLink = By.linkText("Register");
 	private By allCategoriesOptions = By
 			.xpath("//button[text()='All Categories']/following-sibling::div[@x-placement='bottom-start']/a");
+	
+	private static final Logger log = LogManager.getLogger(LoginPage.class);
 
 	// page const...
 
@@ -43,14 +47,16 @@ public class LoginPage {
 	@Step("getting login page title")
 	public String getLoginPageTitle() {
 		String title = eleUtil.waitForTitleIs(AppConstants.LOGIN_PAGE_TITLE, AppConstants.SHORT_DEFAUTT_WAIT);
-		System.out.println("login page title is: " + title);
+		//System.out.println("login page title is: " + title);
+		log.info("login page title is: " + title);
 		return title;
 	}
 
 	@Step("getting login url")
 	public String getLoginPageURL() {
 		String url = eleUtil.waitForURLContains(AppConstants.LOGIN_PAGE_URL_FRACTION, AppConstants.SHORT_DEFAUTT_WAIT);
-		System.out.println("login page url is: " + url);
+		//System.out.println("login page url is: " + url);
+		log.info("login page url is: " + url);
 		return url;
 	}
 	
@@ -66,7 +72,8 @@ public class LoginPage {
 
 	@Step("username is : {0} and password {1}")
 	public AccountsPage doLogin(String username, String pwd) {
-		System.out.println("creds are " + username + " : " + pwd);
+		//System.out.println("creds are " + username + " : " + pwd);
+		log.info("creds are " + username + " : " + pwd);
 		eleUtil.waitForVisibilityOfElement(userName, AppConstants.LONG_DEFAUTT_WAIT).sendKeys(username);
 		eleUtil.doSendKeys(password, pwd);
 		eleUtil.doClick(loginBtn);
@@ -76,7 +83,8 @@ public class LoginPage {
 	@Step("checking linktext on loginpage")
 	public List<String> getLoginPageLinkTexts() {
 		List<String> linksListTexts = eleUtil.getElementsTextList(links);
-		System.out.println(linksListTexts);
+		//System.out.println(linksListTexts);
+		log.info(linksListTexts);
 		return linksListTexts;
 	}
 

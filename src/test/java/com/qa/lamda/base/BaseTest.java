@@ -2,6 +2,8 @@ package com.qa.lamda.base;
 
 import java.util.Properties;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -25,31 +27,33 @@ public class BaseTest {
 	protected SearchResultsPage searchResultsPage;
 	protected ProductInfoPage productInfoPage;
 	protected RegisterPage registerPage;
-	
+
 	protected SoftAssert softAssert;
 
-	@Parameters({"browser","browserversion","testname"})
+	private static final Logger log = LogManager.getLogger(BaseTest.class);
+
+	@Parameters({ "browser", "browserversion", "testname" })
 	@BeforeTest
-	public void setUp(String browserName,String browserVersion,String testName) {
+	public void setUp(String browserName, String browserVersion, String testName) {
+		log.info(browserName + " : " + browserVersion + " " + testName);
 		df = new DriverFactory();
 		prop = df.initProp();
-		
-		if(browserName!=null) {
+
+		if (browserName != null) {
 			prop.setProperty("browser", browserName);
 			prop.setProperty("browserversion", browserVersion);
 			prop.setProperty("testname", testName);
 		}
-		
-		
+
 		driver = df.initDriver(prop);
 		loginPage = new LoginPage(driver);
 		softAssert = new SoftAssert();
 
 	}
 
-	
 	@AfterTest
 	public void tearDown() {
 		driver.quit();
+		log.info("browser is closed...");
 	}
 }

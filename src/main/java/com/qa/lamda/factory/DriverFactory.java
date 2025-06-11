@@ -8,6 +8,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -27,15 +29,18 @@ public class DriverFactory {
 	OptionsManager optionsManager;
 	public static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<WebDriver>();
 
+	private static final Logger log = LogManager.getLogger(DriverFactory.class);
+
 	public static String highlight = null;
 
 	public WebDriver initDriver(Properties prop) {
 
 		String browserName = prop.getProperty("browser");
-		//String browserName = System.getProperty("browser");
+		// String browserName = System.getProperty("browser");
 
-		System.out.println("browser name is : " + browserName);
-		
+		// System.out.println("browser name is : " + browserName);
+		log.info("browser name is : " + browserName);
+
 		highlight = prop.getProperty("highlight");
 
 		optionsManager = new OptionsManager(prop);
@@ -43,48 +48,48 @@ public class DriverFactory {
 		switch (browserName.toLowerCase().trim()) {
 
 		case "chrome":
-			
-			if(Boolean.parseBoolean(prop.getProperty("remote"))) {
-				//run it on grid:
+
+			log.info("Running it on chrome");
+			if (Boolean.parseBoolean(prop.getProperty("remote"))) {
+				// run it on grid:
+				log.info("Running it on remote");
 				initRemoteDriver(browserName);
-			}
-			else {
-				//run it on local:
+			} else {
+				// run it on local:
+				log.info("Running it on local machine");
 				tlDriver.set(new ChromeDriver(optionsManager.getChromeOptions()));
 			}
-			
-			
+
 			break;
-			
+
 		case "firefox":
-			if(Boolean.parseBoolean(prop.getProperty("remote"))) {
-				//run it on grid:
+			if (Boolean.parseBoolean(prop.getProperty("remote"))) {
+				// run it on grid:
 				initRemoteDriver(browserName);
-			}
-			else {
-				//run it on local:
-			tlDriver.set(new FirefoxDriver(optionsManager.getFirefoxOptions()));
+			} else {
+				// run it on local:
+				tlDriver.set(new FirefoxDriver(optionsManager.getFirefoxOptions()));
 			}
 			break;
-			
+
 		case "edge":
-			if(Boolean.parseBoolean(prop.getProperty("remote"))) {
-				//run it on grid:
+			if (Boolean.parseBoolean(prop.getProperty("remote"))) {
+				// run it on grid:
 				initRemoteDriver(browserName);
-			}
-			else {
-				//run it on local:
-			tlDriver.set(new EdgeDriver(optionsManager.getEdgeOptions()));
+			} else {
+				// run it on local:
+				tlDriver.set(new EdgeDriver(optionsManager.getEdgeOptions()));
 			}
 			break;
-			
+
 		case "safari":
-			//driver = new SafariDriver();
+			// driver = new SafariDriver();
 			tlDriver.set(new SafariDriver());
 			break;
 
 		default:
-			System.out.println("please pass the right browser name... : " + browserName);
+			// System.out.println("please pass the right browser name... : " + browserName);
+			log.warn("please pass the right browser name... : " + browserName);
 			throw new FrameworkException("NO BROWSER FOUND");
 
 		}
@@ -95,14 +100,16 @@ public class DriverFactory {
 
 		return getDriver();
 	}
-	
+
 	/**
 	 * run tests on grid
+	 * 
 	 * @param browserName
 	 */
 
 	private void initRemoteDriver(String browserName) {
-		System.out.println("Running tests on GRID with browser : " + browserName);
+		//System.out.println("Running tests on GRID with browser : " + browserName);
+		log.info("Running tests on GRID with browser : " + browserName);
 
 		try {
 			switch (browserName.toLowerCase().trim()) {
@@ -120,7 +127,8 @@ public class DriverFactory {
 				break;
 
 			default:
-				System.out.println("wrong browser info..can not run on grid machine....");
+				//System.out.println("wrong browser info..can not run on grid machine....");
+				log.warn("wrong browser info..can not run on grid machine....");
 				break;
 			}
 		} catch (MalformedURLException e) {
@@ -140,13 +148,16 @@ public class DriverFactory {
 		prop = new Properties();
 
 		String envName = System.getProperty("env");
-		System.out.println("env name is : " + envName);
+		//System.out.println("env name is : " + envName);
+		log.info("env name is : " + envName);
 
 		try {
 
 			if (envName == null) {
-				System.out.println("your env is null...hence running tests on QA env...");
+				log.warn("your env is null...hence running tests on QA env...");
+				//System.out.println("your env is null...hence running tests on QA env...");
 				ip = new FileInputStream("./src/test/resources/config/config.qa.properties");
+				log.info(ip);
 			}
 
 			else {
@@ -169,6 +180,7 @@ public class DriverFactory {
 
 				default:
 					System.out.println("please pass the right env name : " + envName);
+					log.error("wrong env name : " + envName);
 					throw new FrameworkException("Wrong Env Name");
 				}
 			}

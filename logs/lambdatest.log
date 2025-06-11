@@ -1,0 +1,17 @@
+2025-06-11 12:30:44 INFO  BaseTest:38 - chrome : 117 Login Page Test
+2025-06-11 12:30:44 INFO  DriverFactory:152 - env name is : null
+2025-06-11 12:30:44 WARN  DriverFactory:157 - your env is null...hence running tests on QA env...
+2025-06-11 12:30:44 INFO  DriverFactory:160 - java.io.FileInputStream@78e28e6
+2025-06-11 12:30:44 INFO  DriverFactory:42 - browser name is : chrome
+2025-06-11 12:30:44 INFO  DriverFactory:52 - Running it on chrome
+2025-06-11 12:30:44 INFO  DriverFactory:59 - Running it on local machine
+2025-06-11 12:31:00 INFO  LoginPage:51 - login page title is: Account Login
+2025-06-11 12:31:00 INFO  LoginPageTest:35 - actual login page title : Account Login
+2025-06-11 12:31:01 INFO  LoginPage:59 - login page url is: https://ecommerce-playground.lambdatest.io/index.php?route=account/login
+2025-06-11 12:31:03 INFO  LoginPage:76 - creds are john@lambdatest.com : Test@123
+2025-06-11 12:31:04 INFO  ElementUtil:90 - locato : By.id: input-password
+2025-06-11 12:31:04 INFO  ElementUtil:90 - locato : By.id: input-password
+2025-06-11 12:31:05 INFO  ElementUtil:90 - locato : By.cssSelector: input[value='Login']
+2025-06-11 12:31:05 INFO  ElementUtil:90 - locato : By.cssSelector: input[value='Login']
+2025-06-11 12:31:14 INFO  LoginPage:87 - [My Account, Edit Account, Password, Address Book, Wish List, Notification, Order History, Downloads, Recurring payments, Reward Points, Returns, Transactions, Newsletter, Logout]
+2025-06-11 12:31:14 INFO  BaseTest:57 - browser is closed...

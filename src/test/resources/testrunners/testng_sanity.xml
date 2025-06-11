@@ -19,6 +19,9 @@
 
 	<test name="Login Page Test">
 		<parameter name="browser" value="chrome" />
+		<parameter name="browserversion" value="117" />
+		<parameter name="testname" value="Login Page Test" />
+
 
 		<classes>
 			<class name="com.qa.lamda.tests.LoginPageTest" />

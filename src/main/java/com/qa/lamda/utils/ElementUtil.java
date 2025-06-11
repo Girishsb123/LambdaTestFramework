@@ -4,6 +4,8 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotInteractableException;
@@ -22,6 +24,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.qa.lamda.exception.FrameworkException;
 import com.qa.lamda.factory.DriverFactory;
+import com.qa.lamda.pages.LoginPage;
 
 import io.qameta.allure.Step;
 
@@ -32,11 +35,13 @@ public class ElementUtil {
 	private WebDriver driver;
 	private JavaScriptUtil jsUtil;
 
+	private static final Logger log = LogManager.getLogger(ElementUtil.class);
+
 	public ElementUtil(WebDriver driver) {
 		this.driver = driver;
 		jsUtil = new JavaScriptUtil(driver);
 	}
-	
+
 	private void isHighlight(WebElement element) {
 		if (Boolean.parseBoolean(DriverFactory.highlight)) {
 			jsUtil.flash(element);
@@ -81,6 +86,14 @@ public class ElementUtil {
 
 	}
 
+	private void logLocator(By locator) {
+		log.info("locato : " + locator);
+	}
+	
+	private void logLocator(By locator,String value) {
+		log.info("locato : " + locator + "----value----" + value);
+	}
+
 	// locatorType = "id", locatorValue = "input-email", value = "tom@gmail.com"
 	public void doSendKeys(String locatorType, String locatorValue, String value) {
 		getElement(locatorType, locatorValue).sendKeys(value);
@@ -88,11 +101,13 @@ public class ElementUtil {
 
 	@Step("entering value {1} to element : {0}")
 	public void doSendKeys(By locator, String value) {
+		logLocator(locator);
 		getElement(locator).sendKeys(value);
 	}
 
 	@Step("clicking on element : {0}")
 	public void doClick(By locator) {
+		logLocator(locator);
 		getElement(locator).click();
 	}
 
@@ -113,14 +128,15 @@ public class ElementUtil {
 	}
 
 	public WebElement getElement(By locator) {
+		logLocator(locator);
 		WebElement element = driver.findElement(locator);
-		 isHighlight(element);
+		isHighlight(element);
 		return element;
 	}
 
 	public WebElement getElement(String locatorType, String locatorValue) {
-		WebElement element =  driver.findElement(getBy(locatorType, locatorValue));
-        isHighlight(element);
+		WebElement element = driver.findElement(getBy(locatorType, locatorValue));
+		isHighlight(element);
 		return element;
 	}
 
@@ -340,8 +356,6 @@ public class ElementUtil {
 			act.sendKeys(getElement(locator), String.valueOf(c)).pause(500).build().perform();
 		}
 	}
-	
-	
 
 	// ****************Wait Utils***************//
 
@@ -355,8 +369,8 @@ public class ElementUtil {
 	 */
 	public WebElement waitForPresenceOfElement(By locator, int timeOut) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOut));
-		WebElement element =  wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-        isHighlight(element);
+		WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+		isHighlight(element);
 		return element;
 
 	}
@@ -372,7 +386,7 @@ public class ElementUtil {
 	 */
 	public WebElement waitForPresenceOfElement(By locator, int timeOut, int intervalTime) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOut), Duration.ofSeconds(intervalTime));
-		WebElement element =  wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+		WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
 		isHighlight(element);
 		return element;
 
@@ -390,7 +404,7 @@ public class ElementUtil {
 	@Step("waiting for element : {0} with timeout {1}")
 	public WebElement waitForVisibilityOfElement(By locator, int timeOut) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOut));
-		WebElement element =  wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+		WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 		isHighlight(element);
 		return element;
 
@@ -399,7 +413,7 @@ public class ElementUtil {
 	@Step("waiting for element : {0} with timeout {1}")
 	public WebElement waitForVisibilityOfElement(By locator, int timeOut, int intervalTime) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOut), Duration.ofSeconds(intervalTime));
-		WebElement element =  wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+		WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 		isHighlight(element);
 		return element;
 
@@ -592,7 +606,7 @@ public class ElementUtil {
 				.withMessage("--time out is done...element is not found....").ignoring(NoSuchElementException.class)
 				.ignoring(ElementNotInteractableException.class);
 
-		WebElement element =  wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+		WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 		isHighlight(element);
 		return element;
 	}
