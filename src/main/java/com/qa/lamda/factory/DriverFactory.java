@@ -140,6 +140,10 @@ public class DriverFactory {
 	public static WebDriver getDriver() {
 		return tlDriver.get();
 	}
+	
+	public static void unLoad() {
+		tlDriver.remove();
+	}
 
 	public Properties initProp() {
 
