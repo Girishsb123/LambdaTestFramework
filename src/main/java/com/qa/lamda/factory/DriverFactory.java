@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
@@ -19,13 +20,16 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.testng.Assert;
 
+import com.qa.lamda.constants.AppConstants;
+import com.qa.lamda.enums.ConfigProperties;
 import com.qa.lamda.exception.FrameworkException;
 
 public class DriverFactory {
 
 	WebDriver driver;
-	Properties prop;
+	static Properties prop;
 	OptionsManager optionsManager;
 	public static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<WebDriver>();
 
@@ -108,7 +112,7 @@ public class DriverFactory {
 	 */
 
 	private void initRemoteDriver(String browserName) {
-		//System.out.println("Running tests on GRID with browser : " + browserName);
+		// System.out.println("Running tests on GRID with browser : " + browserName);
 		log.info("Running tests on GRID with browser : " + browserName);
 
 		try {
@@ -127,7 +131,7 @@ public class DriverFactory {
 				break;
 
 			default:
-				//System.out.println("wrong browser info..can not run on grid machine....");
+				// System.out.println("wrong browser info..can not run on grid machine....");
 				log.warn("wrong browser info..can not run on grid machine....");
 				break;
 			}
@@ -140,7 +144,7 @@ public class DriverFactory {
 	public static WebDriver getDriver() {
 		return tlDriver.get();
 	}
-	
+
 	public static void unLoad() {
 		tlDriver.remove();
 	}
@@ -160,26 +164,26 @@ public class DriverFactory {
 			if (envName == null) {
 				log.warn("your env is null...hence running tests on QA env...");
 				//System.out.println("your env is null...hence running tests on QA env...");
-				ip = new FileInputStream("./src/test/resources/config/config.qa.properties");
+				ip = new FileInputStream(AppConstants.CONFIG_PROPERTY_FILE_QA);
 				log.info(ip);
 			}
 
 			else {
 				switch (envName.toLowerCase().trim()) {
 				case "qa":
-					ip = new FileInputStream("./src/test/resources/config/config.qa.properties");
+					ip = new FileInputStream(AppConstants.CONFIG_PROPERTY_FILE_QA);
 					break;
 				case "dev":
-					ip = new FileInputStream("./src/test/resources/config/config.dev.properties");
+					ip = new FileInputStream(AppConstants.CONFIG_PROPERTY_FILE_DEV);
 					break;
 				case "stage":
-					ip = new FileInputStream("./src/test/resources/config/config.stage.properties");
+					ip = new FileInputStream(AppConstants.CONFIG_PROPERTY_FILE_STAGE);
 					break;
 				case "uat":
-					ip = new FileInputStream("./src/test/resources/config/config.uat.properties");
+					ip = new FileInputStream(AppConstants.CONFIG_PROPERTY_FILE_UAT);
 					break;
 				case "prod":
-					ip = new FileInputStream("./src/test/resources/config/config.prod.properties");
+					ip = new FileInputStream(AppConstants.CONFIG_PROPERTY_FILE_PROD);
 					break;
 
 				default:
@@ -200,6 +204,16 @@ public class DriverFactory {
 			e.printStackTrace();
 		}
 		return prop;
+	}		
+		public static String getValue(ConfigProperties key) {
+			
+			if(Objects.isNull(key) || Objects.isNull(prop.getProperty(key.name().toLowerCase()))) {
+				Assert.assertTrue(false, "Properties file key " + key + " or value "
+			
+						+ prop.getProperty(key.name().toLowerCase()) + prop.getProperty(key.name().toLowerCase()) + "is null. please check");
+			}
+			
+			return prop.getProperty(key.name().toLowerCase(null));
 
 	}
 

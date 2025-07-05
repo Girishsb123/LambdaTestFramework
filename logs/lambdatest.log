@@ -15,3 +15,20 @@
 2025-06-11 12:31:05 INFO  ElementUtil:90 - locato : By.cssSelector: input[value='Login']
 2025-06-11 12:31:14 INFO  LoginPage:87 - [My Account, Edit Account, Password, Address Book, Wish List, Notification, Order History, Downloads, Recurring payments, Reward Points, Returns, Transactions, Newsletter, Logout]
 2025-06-11 12:31:14 INFO  BaseTest:57 - browser is closed...
+2025-07-05 08:08:36 INFO  BaseTest:38 - chrome : 117 Login Page Test
+2025-07-05 08:08:36 INFO  DriverFactory:157 - env name is : null
+2025-07-05 08:08:36 WARN  DriverFactory:162 - your env is null...hence running tests on QA env...
+2025-07-05 08:08:36 INFO  DriverFactory:165 - java.io.FileInputStream@2f67deb2
+2025-07-05 08:08:36 INFO  DriverFactory:43 - browser name is : chrome
+2025-07-05 08:08:36 INFO  DriverFactory:53 - Running it on chrome
+2025-07-05 08:08:36 INFO  DriverFactory:60 - Running it on local machine
+2025-07-05 08:09:05 INFO  LoginPage:51 - login page title is: Account Login
+2025-07-05 08:09:05 INFO  LoginPageTest:35 - actual login page title : Account Login
+2025-07-05 08:09:05 INFO  LoginPage:59 - login page url is: https://ecommerce-playground.lambdatest.io/index.php?route=account/login
+2025-07-05 08:09:08 INFO  LoginPage:76 - creds are john@lambdatest.com : Test@123
+2025-07-05 08:09:09 INFO  ElementUtil:90 - locato : By.id: input-password
+2025-07-05 08:09:09 INFO  ElementUtil:90 - locato : By.id: input-password
+2025-07-05 08:09:10 INFO  ElementUtil:90 - locato : By.cssSelector: input[value='Login']
+2025-07-05 08:09:10 INFO  ElementUtil:90 - locato : By.cssSelector: input[value='Login']
+2025-07-05 08:09:19 INFO  LoginPage:87 - [My Account, Edit Account, Password, Address Book, Wish List, Notification, Order History, Downloads, Recurring payments, Reward Points, Returns, Transactions, Newsletter, Logout]
+2025-07-05 08:09:20 INFO  BaseTest:57 - browser is closed...
