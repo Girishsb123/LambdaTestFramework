@@ -424,6 +424,10 @@ public class BaseUtil {
 		js.executeScript("arguments[0].scrollIntoView();", element);
 	}
 	
+	public By getByObject(String customXpath,String memberField) {
+		return By.xpath(DynamicXpathUtils.getXpath(customXpath, memberField));
+	}
+	
 
 	protected void doubleClick(By by, WaitStrategy waitStrategy, String elementName) {
 
